@@ -1,0 +1,27 @@
+<wxs src="../wxs/utils.wxs" module="utils" />
+
+<movable-area
+  class="van-picker-column custom-class"
+  style="height: {{ itemHeight }}px; top: {{ itemHeight * (visibleItemCount - 1) / 2 }}px;"
+>
+  <movable-view
+    direction="vertical"
+    out-of-bounds
+    damping="{{ 50 }}"
+    y="{{ offset }}"
+    animation="{{ animation }}"
+    style="line-height: {{ itemHeight }}px; width: 100%; height: {{ itemHeight * options.length }}px;"
+    bindchange="onChange"
+    bindtouchstart="onTouchStart"
+    bindtouchend="onTouchEnd"
+  >
+    <view
+      wx:for="{{ options }}"
+      wx:key="index"
+      data-index="{{ index }}"
+      style="height: {{ itemHeight }}px"
+      class="van-ellipsis {{ utils.bem('picker-column__item', { disabled: item && item.disabled, selected: index === currentIndex }) }} {{ index === currentIndex ? 'active-class' : '' }}"
+      bindtap="onClickItem"
+    >{{ item && item[valueKey] ? item[valueKey] : item }}</view>
+  </movable-view>
+</movable-area>
